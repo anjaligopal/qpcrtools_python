@@ -22,9 +22,9 @@ def import_plate(file, save_tabular = True):
     
     # Reading file depending on whether it's excel or csv
     if file_extension == ".xls" or file_extension == ".xlsx":
-        plate_file = pd.read_excel(file, index_col=1)
+        plate = pd.read_excel(file, index_col=1, na_filter=False)
     else:
-        plate_file = pd.read_csv(file)
+        plate = pd.read_csv(file, na_filter=False)
 
 
     # Creating a list of plate indices
@@ -37,7 +37,7 @@ def import_plate(file, save_tabular = True):
 
 
     # Reading and re-shpaing plate file
-    plate = np.array(pd.read_excel(file,na_filter=False))
+    plate = np.array(plate)
     plate = plate.reshape(-1,1).flatten();
 
 
@@ -135,3 +135,5 @@ def create_plate(plate_layout, output_file="example_data/plate_layout.txt",
 
     with open(output_file, 'w') as file:
         file.write(merged_file)
+
+    return(plate_setup)
